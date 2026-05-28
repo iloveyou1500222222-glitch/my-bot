@@ -84,4 +84,4 @@ def start(message):
 
 # ... ကျန်တဲ့ code တွေကို အရင်အတိုင်း ထားပါ ...
 
-                     
+bot.infinity_polling()                     
