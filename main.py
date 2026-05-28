@@ -1,5 +1,5 @@
 import telebot
-import os8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ
+import os
 import threading
 
 bot = telebot.TeleBot('8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ')
