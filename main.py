@@ -1,5 +1,4 @@
 import telebot
-import random
 TOKEN = '8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ'
 OWNER_IDS = [7771663458, 853383380] # Admin IDs များ
 AD_TEXT = "📢 ကြော်ငြာ - Bot ပိုင်ရှင် နတ်သားလေး @Tear808 ဆီသို့ ဆက်သွယ်နိုင်ပါသည်ရှင့်။ 🆘 👑"
