@@ -1,4 +1,4 @@
-ပြန်ပေးလိုက်ပါပြီရှင့်သဲ‌ေယး-- [အောက်ပါ Settings များကို စိတ်ကြိုက် ပြင်နိုင်ပါသည်] ---
+
 TOKEN = '8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ'
 OWNER_IDS = [7771663458, 853383380] # Admin IDs များ
 AD_TEXT = "📢 ကြော်ငြာ - Bot ပိုင်ရှင် နတ်သားလေး @Tear808 ဆီသို့ ဆက်သွယ်နိုင်ပါသည်ရှင့်။ 🆘 👑"
@@ -75,10 +75,6 @@ def admin_tools(message):
             bot.reply_to(message, "🔊 စကားပြောခွင့် ပြန်ပေးလိုကပြန်ပေးလိုက်ပါပြရှင့်သဲ‌ယေး။")
             import telebot
 
-TOKEN = '8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ'
-OWNER_IDS = [7771663458, 853383380]
-
-bot = telebot.TeleBot(TOKEN)
 # Bot ရောက်နေတဲ့ Group ID တွေကို သိမ်းထားမယ့် စာရင်း
 groups = set()
 
