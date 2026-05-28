@@ -56,5 +56,32 @@ def welcome(message):
     for member in message.new_chat_members:
         bot.reply_to(message, f"ကြိုဆိုပါတယ်နော် မမသဲလေး😘 @{member.username or member.first_name} အာဘွားသဲလေး🤪😍" + AD)
 
-bot.infinity_polling()
+Group = telebot.TeleBot(TOKEN)
+# Bot ရောက်နေတဲ့ Group ID တွေကို သိမ်းထားမယ့် စာရင်း
+groups = set()
+
+def is_owner(uid): return uid in OWNER_IDS
+
+@bot.message_handler(commands=['broadcast'])
+def broadcast(message):
+    if not is_owner(message.from_user.id): return
+    # /broadcast လို့ရိုက်ပြီး နောက်ကစာကို ပို့ပေးမယ်
+    ad_content = message.text.replace('/broadcast ', '')
+    if ad_content == '/broadcast':
+        bot.reply_to(message, "ကြော်ငြာစာသား ထည့်ပေးပါဦး Admin ကြီး!")
+        return
+    
+    for gid in groups:
+        try:
+            bot.send_message(gid, ad_content)
+        except: continue
+    bot.reply_to(message, "✅ ကြော်ငြာများ ပို့ပြီးပါပြီ!")
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    groups.add(message.chat.id) # Group ID ကို မှတ်ထားမယ်
+    bot.reply_to(message, "မင်္ဂလာပါ! Bot လေး အဆင်သင့်ဖြစ်ပါပြီ။")
+
+# ... ကျန်တဲ့ code တွေကို အရင်အတိုင်း ထားပါ ...
+
                      
