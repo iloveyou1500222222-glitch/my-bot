@@ -10,7 +10,22 @@ WELCOME_MSG = "မင်္ဂလာပါရှင့်😘 ကျေးဇူ
 
 bot = telebot.TeleBot(TOKEN)
 user_pool = [] 
+# Help စာသားကို ဒီနေရာမှာပဲ သီးသန့် ပြင်ပါ
+HELP_MSG = """
+✨ *Bot အသုံးပြုပုံ* ✨
 
+/start - Bot စတင်ရန်
+/help - အသုံးပြုပုံကြည့်ရန်
+/love - တွဲရန် စာရင်းသွင်းမည်
+/admin - Admin 🧑‍🤝‍🧑👭Ban ခေါ်ရန်
+/ban - (Admin) Reply လုပ်ပြီး Ban 🚫🚫ရန််ပြီး
+/mute - (Admin) Reply လုပ်ပြီး Mute 📵📵ရန််
+/umute - (Admin) Reply လုပ်ပြီး Unmut❓ရန်
+"""
+# --------------------------------------------------------
+
+bot = telebot.TeleBot(TOKEN)
+user_pool = [] 
 # ၁။ Start လုပ်မှ ကြော်ငြာနှင့် ဝယ်ကမ်း msg ပေါ်ခြင်း
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -34,7 +49,7 @@ def love_match(message):
 @bot.message_handler(commands=['admin'])
 def call_admin(message):
     mentions = " ".join([f"[Admin](tg://user?id={uid})" for uid in OWNER_IDS])
-    bot.reply_to(message, f"📢 Admin $ချောမျရှင့်! အကူအညီ လိုအပ်နေပါတယ်gpလာခဲ့အုန်းမလာရင်စော်ပစ်။ဘဲပစ်မဖစ်ပာစေတော်🤪😒 - {mentions}\n\n{AD_TEXT}", parse_mode="Markdown")
+    bot.reply_to(message, f"📢 Admin $ချောမျရှင့်! အကူအညီ လိုအပ်နေပါတယ်gpလာခဲ့အုန်းမလာရင်စော်ပစ်။ဘဲပစ်မဖစ်ပစေတော်🤪😒 - {mentions}\n\n{AD_TEXT}", parse_mode="Markdown")
 
 # ၄။ Admin သီးသန့် အလုပ်များ
 @bot.message_handler(commands=['ban', 'mute', 'umute'])
@@ -53,4 +68,4 @@ def admin_tools(message):
         elif message.text == '/umute':
             bot.restrict_chat_member(message.chat.id, target, can_send_messages=True)
             bot.reply_to(message, "🔊 စကားပြောခွင့် ပြန်ပေးလိုက်ပါပြီရှင့်သဲ‌ေယး😘။")
-    iprr
+ r
