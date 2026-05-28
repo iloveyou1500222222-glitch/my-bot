@@ -1,4 +1,4 @@
-import telebot
+စာရင်းသွင်းမည်elebot
 import random
 
 # --- [အောက်ပါ Settings များကို စိတ်ကြိုက် ပြင်နိုင်ပါသည်] ---
@@ -16,13 +16,14 @@ HELP_MSG = """
 
 /start - Bot စတင်ရန်
 /help - အသုံးပြုပုံကြည့်ရန်
-/love - တွဲရန် စာရင်းသွင်းမည်
+/boy  -မြှားနတ်မောင်
 /admin - Admin 🧑‍🤝‍🧑👭Ban ခေါ်ရန်
 /ban - (Admin) Reply လုပ်ပြီး Ban 🚫🚫ရန််ပြီး
 /mute - (Admin) Reply လုပ်ပြီး Mute 📵📵ရန််
 /umute - (Admin) Reply လုပ်ပြီး Unmut❓ရန်
-"""
-# --------------------------------------------------------
+/girl -မိန်းခ‌ေလးအဖစ်စာရင်းဝင်ပီရှင့်💝
+/boy -ယောက်ျားလေးအဖစ်စာရင်းဝင်ပီရှင့်💝"""
+#---------------------------------------------------------
 
 bot = telebot.TeleBot(TOKEN)
 user_pool = [] 
@@ -31,25 +32,32 @@ user_pool = []
 def start(message):
     bot.reply_to(message, f"{WELCOME_MSG}\n\n{AD_TEXT}")
 
-# ၂။ /love ရိုက်မှ တွဲပေးခြင်း
-@bot.message_handler(commands=['love'])
-def love_match(message):
-    uid = message.from_user.id
-    name = message.from_user.first_name
-    if {'id': uid, 'name': name} not in user_pool:
-        user_pool.append({'id': uid, 'name': name})
-        bot.reply_to(message, f"✅ {name} ရေ၊ ❤️‍🩹ရည်းစားရှာရန်စာရင်းထဲ ဝင်သွားပါပြီရှင့်🎉🎉။")
-    
-    if len(user_pool) >= 2:
-        u1 = user_pool.pop(0)
-        u2 = user_pool.pop(0)
-        bot.send_message(message.chat.id, f"🎉 မြှားနတ်မောင်မြှားပစ်လိုက်ပီနော်! {u1['name']} နှင့် {u2['name']} တို့ အတွဲများ ဖြစ်သွားပါပြီသာယာတဲဘဝ‌ေလးဖြစ်‌ေစကွာ😊😘။ 💖\n\n{AD_TEXT}")
+# ၂။ @bot.message_handler(commands=['boy'])
+def set_boy(message):
+    boys.append({'id': message.from_user.id, 'name': message.from_user.first_name, 'username': message.from_user.username})
+    bot.reply_to(message, "✅ သင် ယောကျာ်းလေးအဖြစ် စာရင်းသွင်းပြီးပါပြီ💝✅။" + AD_TEXT)
 
-# ၃။ Admin အားလုံးကို Tag လုပ်ခေါ်ခြင်း
+@bot.message_handler(commands=['girl'])
+def set_girl(message):
+    girls.append({'id': message.from_user.id, 'name': message.from_user.first_name, 'username': message.from_user.username})
+    bot.reply_to(message, "✅ သင် မိန်းကလေးအဖြစ် စာရင်းသွင်းပြီးပါပြီ💝✅။" + AD_TEXT)
+
+@bot.message_handler(commands=['love'])
+def match(message):
+    if boys and girls:
+        b = boys.pop(0)
+        g = girls.pop(0)
+        # @username နဲ့ ခေါ်ပေးခြင်း
+        b_mention = f"@{b['username']}" if b['username'] else b['name']
+        g_mention = f"@{g['username']}" if g['username'] else g['name']
+        
+        bot.send_message(message.chat.id, f"🎉 မြှားနတ်မောင်မြှားပစ်လိုက်ပီ✅✅! {b_mention} နှင့် {g_mention} တို့ အတွဲများ ဖြစ်သွားပါပီရှင့်။ 💖{AD_TEXT}")
+    else:
+        bot.reply_to(message, "⚠️ စာရင်းထဲတွင် တွဲရန် လူမလုံလောက်သေးပါ။ /boy သို့မဟုတ် /girl နဲ့ စာရင်းသွင်းပေးပါဦးအာဘွား‌ေပးမယ်။" + AD_TEXT)
 @bot.message_handler(commands=['admin'])
 def call_admin(message):
     mentions = " ".join([f"[Admin](tg://user?id={uid})" for uid in OWNER_IDS])
-    bot.reply_to(message, f"📢 Admin $ချောမျရှင့်! အကူအညီ လိုအပ်နေပါတယ်gpလာခဲ့အုန်းမလာရင်စော်ပစ်။ဘဲပစ်မဖစ်ပစေတော်🤪😒 - {mentions}\n\n{AD_TEXT}", parse_mode="Markdown")
+    bot.reply_to(message, f"📢 Admin $message Admin$ချောများရှင့်💝💝! အကူအညီ လိုအပ်နေပါတယ်gpလာခဲ့အုန်းမလာရင်စော်ပစ်။ဘဲပစ်မဖစ်ပစေတော်🤪😒 - {mentions}\n\n{AD_TEXT}", parse_mode="Markdown")
 
 # ၄။ Admin သီးသန့် အလုပ်များ
 @bot.message_handler(commands=['ban', 'mute', 'umute'])
