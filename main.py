@@ -1,7 +1,4 @@
-စာရင်းသွင်းမည်elebot
-import random
-
-# --- [အောက်ပါ Settings များကို စိတ်ကြိုက် ပြင်နိုင်ပါသည်] ---
+ပြန်ပေးလိုက်ပါပြီရှင့်သဲ‌ေယး-- [အောက်ပါ Settings များကို စိတ်ကြိုက် ပြင်နိုင်ပါသည်] ---
 TOKEN = '8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ'
 OWNER_IDS = [7771663458, 853383380] # Admin IDs များ
 AD_TEXT = "📢 ကြော်ငြာ - Bot ပိုင်ရှင် နတ်သားလေး @Tear808 ဆီသို့ ဆက်သွယ်နိုင်ပါသည်ရှင့်။ 🆘 👑"
@@ -75,5 +72,36 @@ def admin_tools(message):
             bot.reply_to(message, "🤫 Mute လိုက်ပါပြီစိတ်ဆိုးတယ်။")
         elif message.text == '/umute':
             bot.restrict_chat_member(message.chat.id, target, can_send_messages=True)
-            bot.reply_to(message, "🔊 စကားပြောခွင့် ပြန်ပေးလိုက်ပါပြီရှင့်သဲ‌ေယး😘။")
- r
+            bot.reply_to(message, "🔊 စကားပြောခွင့် ပြန်ပေးလိုကပြန်ပေးလိုက်ပါပြရှင့်သဲ‌ယေး။")
+            import telebot
+
+TOKEN = '8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ'
+OWNER_IDS = [7771663458, 853383380]
+
+bot = telebot.TeleBot(TOKEN)
+# Bot ရောက်နေတဲ့ Group ID တွေကို သိမ်းထားမယ့် စာရင်း
+groups = set()
+
+def is_owner(uid): return uid in OWNER_IDS
+
+@bot.message_handler(commands=['broadcast'])
+def broadcast(message):
+    if not is_owner(message.from_user.id): return
+    # /broadcast လို့ရိုက်ပြီး နောက်ကစာကို ပို့ပေးမယ်
+    ad_content = message.text.replace('/broadcast ', '')
+    if ad_content == '/broadcast':
+        bot.reply_to(message, "ကြော်ငြာစာသား ထည့်ပေးပါဦး Admin ကြီး!")
+        return
+    
+    for gid in groups:
+        try:
+            bot.send_message(gid, ad_content)
+        except: continue
+    bot.reply_to(message, "✅ ကြော်ငြာများ ပို့ပြီးပါပြီ!")
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    groups.add(message.chat.id) # Group ID ကို မှတ်ထားမယ်
+    bot.reply_to(message, "မင်္ဂလာပါ! Bot လေး အဆင်သင့်ဖြစ်ပါပြီ။")
+
+# ... ကျန်တဲ့ code တွေကို အရင်အတိုင်း ထားပါ ...
