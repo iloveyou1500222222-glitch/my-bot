@@ -1,9 +1,9 @@
 import telebot
-import os
+import os8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ
 import threading
 
-bot = telebot.TeleBot('8738992752:AAFe-msk_4dgDusGuZixLGKriynPtwCFJkc')
-ADMIN_ID = 8738992752
+bot = telebot.TeleBot('8738992752:AAEc0SDy-JjFfdB2U2pzcZfZAtg5iPNqSLQ')
+ADMIN_ID = 7771663458
 
 @bot.message_handler(func=lambda m: True)
 def save(m):
