@@ -105,3 +105,4 @@ def start(message):
     bot.reply_to(message, "မင်္ဂလာပါ! Bot လေး အဆင်သင့်ဖြစ်ပါပြီ။")
 
 # ... ကျန်တဲ့ code တွေကို အရင်အတိုင်း ထားပါ ...
+bot.infinity_polling()
