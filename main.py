@@ -8,7 +8,7 @@ from telegram.error import TelegramError
 
 # .env ဖိုင်မှ Token ကို လုံခြုံစွာ ဖတ်ယူခြင်း
 load_dotenv()
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("8630120862:AAH9XF5rSoz7-rrVkkeOV3gjWqP5mqyD5a0")
 
 # ရိုးရှင်းပြီး စိတ်ချရတဲ့ In-Memory Database (Bot ပိတ်ရင် Reset ဖြစ်ပါမယ်၊ ပိုလုံခြုံပါတယ်)
 users_db = {}  # {user_id: {"gender": "boy"/"girl", "username": "..."}}
