@@ -4,9 +4,9 @@ from telegram import Update, ChatPermissions
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # --- Settings ---
-TOKEN = "8630120862:AAE-dAcieQOQMcKfjKgKLHdtEOi9nTtidyY"
+TOKEN = "8630120862:AAFs93d8YPBnXpTqJfbu524VtDAqORJXtP0"
 OWNER_ID = 7771663458
-AD_TEXT = "\n\n━━━━━━━━━━━━━━\n📢 ကြော်ငြာထည့်ရန် @Tear808 သို့သွားထည့်ပေးပါရှင့်💝✅"
+AD_TEXT = "\n\n━━━━━━━━━━━━━━\n https://t.me/Truelove150080 ရည်းစားရှာဖွေရေးgpကိုjoinပေးကျပာအုန်းရှင့်💝✅"
 
 # In-Memory Data
 users_db = {}
