@@ -1,4 +1,4 @@
-import logging
+f logging
 from telegram import Update, ChatPermissions
 from telegram.ext import Application, CommandHandler, ContextTypes
 
@@ -94,6 +94,6 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await update.message.reply_text(help_text + AD_TEXT, parse_mode="Markdown")
 
-f _n __name__ == '__main__':
+if _n __name__ == '__main__':
     main()
   
