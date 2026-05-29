@@ -25,7 +25,7 @@ async def is_admin(update: Update, context: ContextTypes.DEFAULT_TYPE) -> bool:
 
 # --- Bot Logic ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    msg = "မဂ်လာပါအသုံးပြုသူရှင့် 😘\n🎀မြနှင်း🎀ကိုGroupထဲထည့်ပေးနော်။အာဘွား😘သဲယေး👉🥺👈။\nအသုံပြုပုံကြည့်ရန်--/help ဟုနိပ်ပေးပါရှင့်။😘"
+    msg = "မဂ်လာပါအသုံးပြုသူရှင့် 😘\n🎀မြနှင်း🎀ကိုGroupထဲထည့်ပေးနော်။အာဘွား😘သဲယေး👉🥺👈။ချစ်တယ်။😘"
     await update.message.reply_text(msg + AD_TEXT)
 
 async def set_gender(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -79,7 +79,21 @@ def main():
     app.add_handler(CommandHandler("admin", call_admin))
     app.add_handler(CommandHandler(["ban", "mute", "umute"], admin_tools))
     app.run_polling()
+# --- Help Command ---
+async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    help_text = (
+        "✨ *Bot အသုံးပြုနည်းလမ်းညွှန်* ✨\n\n"
+        "👤 /boy - ယောက်ျားလေးအဖြစ် စာရင်းသွင်းရန်\n"
+        "👧 /girl - မိန်းကလေးအဖြစ် စာရင်းသွင်းရန်\n"
+        "💖 /love - အတွဲချိတ်ရန်\n"
+        "📢 /admin - Admin များကို ခေါ်ရန်\n\n"
+        "🛡 *Admin Tool များ (Reply လုပ်ပြီးသုံးပါ)*\n"
+        "🚫 /ban - Group မှ ထုတ်ရန်\n"
+        "🤫 /mute - စကားပြောမရအောင် ပိတ်ရန်\n"
+        "🔊 /umute - ပိတ်ထားတာ ပြန်ဖွင့်ရန်"
+    )
+    await update.message.reply_text(help_text + AD_TEXT, parse_mode="Markdown")
 
-if __name__ == '__main__':
+f _n __name__ == '__main__':
     main()
   
