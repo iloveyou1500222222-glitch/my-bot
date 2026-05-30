@@ -22,7 +22,7 @@ def keep_alive():
     t.start()
 
 # --- Settings ---
-TOKEN = "8630120862:AAE-dAcieQOQMcKfjKgKLHdtEOi9nTtidyY"
+TOKEN = "8630120862:AAH1uoBp0jg9sei-V3chfkwAd3yzlpjdf9o"
 OWNER_ID = 7771663458
 
 # ကြော်ငြာစာသား အသစ်ပြင်ဆင်ထားမှု 👇
