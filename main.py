@@ -27,7 +27,7 @@ group_list = {}
 
 AD_TEXT = (
     "\n\n━━━━━━━━━━━━━━\n"
-    "📢 https://t.me/Truelove150080\n"
+    "📢 https://t.me/+FFbLsHyYIAg4YmU1\n"
     "ရည်းစားရှာဖွေရေး gp ကို join ပေးကျပါရှင့် 🥰😘✅"
 )
 
@@ -52,7 +52,7 @@ async def welcome_member(update: Update, context: ContextTypes.DEFAULT_TYPE):
         username = f"@{member.username}" if member.username else f"[{member.first_name}](tg://user?id={member.id})"
         welcome_msg = (
             f"ဟယ်... အချောလေး {username} ရေ... 😍✨\n"
-            f"ငါတို့ GP ထဲ ရောက်လာပြီဟယ်... ချောလိုက်တာနော် လူလေးရာ။ 🥰💋\n\n"
+            f"ငါတို့ GP ထဲ ရောက်လာပြီဟယ်... ချောလိုက်တာနော် ချစ်စရာလေး။ 🥰💋\n\n"
             f"🎀 **မြနှင်း** ရဲ့ နွေးထွေးတဲ့ ရင်ခွင်ထဲကို ကြိုဆိုပါတယ်ရှင့်။"
         )
         await update.message.reply_text(welcome_msg, parse_mode='Markdown')
