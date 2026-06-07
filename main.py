@@ -160,5 +160,109 @@ def main():
     app.add_handler(MessageHandler(filters.ALL & ~filters.COMMAND, lambda u, c: group_list.update({u.effective_chat.id: u.effective_chat.title})))
     app.run_polling()
 
+
+# Data သိမ်းရန် ဖိုင်နာမည်
+DATA_FILE = "bot_data.json"
+
+def load_data():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, 'r') as f: return json.load(f)
+    return {"users": {}}
+
+def save_data(data):
+    with open(DATA_FILE, 'w') as f: json.dump(data, f)
+
+data = load_data()
+
+# --- Register Commands ---
+async def register(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user
+    cmd = update.message.text.lower()
+    chat_id = str(update.effective_chat.id)
+    
+    if chat_id not in data["users"]: data["users"][chat_id] = {}
+    
+    gender = "🏳️‍🌈 LGBT Boy" if "/lgbtboy" in cmd else "🏳️‍🌈 LGBT Girl"
+    
+    data["users"][chat_id][str(user.id)] = {
+        "username": f"@{user.username}",
+        "gender": gender,
+        "game": None
+    }
+    save_data(data)
+    await update.message.reply_text(f"✨ {gender} အဖြစ် မှတ်တမ်းတင်ပြီးပါပြီရှင့်! 🥰")
+
+# --- Game Setting Commands ---
+async def set_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    cmd = update.message.text.lower()
+    chat_id = str(update.effective_chat.id)
+    user_id = str(update.effective_user.id)
+    
+    if user_id not in data["users"].get(chat_id, {}):
+        await update.message.reply_text("❌ အရင်ဆုံး /lgbtboy သို့မဟုတ် /lgbtgirl နဲ့ စာရင်းသွင်းပေးပါဦးရှင့်။")
+        return
+
+    game = "MLBB" if "/mlbb" in cmd else "PUBG"
+    data["users"][chat_id][user_id]["game"] = game
+    save_data(data)
+    await update.message.reply_text(f"🎮 {game} ဂိမ်းကို သင့်ရဲ့ အဓိကဂိမ်းအဖြစ် သတ်မှတ်လိုက်ပါပြီရှင့်! 🥰")
+
+# --- Game Friend Finding (The core logic) ---
+async def find_game_buddy(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    cmd = update.message.text.lower()
+    chat_id = str(update.effective_chat.id)
+    user_id = str(update.effective_user.id)
+    
+    target_game = "MLBB" if "/mbbfriend" in cmd else "PUBG"
+    
+    # Filter: ဂိမ်းတူတဲ့သူတွေကို ရှာမယ်
+    potential = [u for u in data["users"].get(chat_id, {}).values() 
+                 if u["game"] == target_game and u["username"] != f"@{update.effective_user.username}"]
+    
+    if not potential:
+        await update.message.reply_text(f"⏳ စိတ်မကောင်းပါဘူးရှင့်... {target_game} ဆော့မယ့် ဖော်ဖက်လေးတွေ ရှာမတွေ့သေးဘူး... 🥺💕")
+        return
+
+    buddy = random.choice(potential)
+    
+    match_text = (
+        f"🎮 **Game Buddy တွေ့ပြီရှင့်!** 🎮\n\n"
+        f"🎯 ဂိမ်း: {target_game}\n"
+        f"👤 Player 1: @{update.effective_user.username}\n"
+        f"👤 Player 2: {buddy['username']}\n\n"
+        f"✨ အချင်းချင်း Game ID လေးတွေ လဲလှယ်ပြီး ပျော်ပျော်ပါးပါး ဆော့ကစားကြပါရှင့်! 🥰💋🔥"
+    )
+    await update.message.reply_text(match_text)
+
+# --- LGBT Love Matching ---
+async def lgbt_love(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = str(update.effective_chat.id)
+    potential = [u for u in data["users"].get(chat_id, {}).values() 
+                 if "LGBT" in u["gender"] and u["username"] != f"@{update.effective_user.username}"]
+    
+    if not potential:
+        await update.message.reply_text("💘 ဖူးစာရှင်လေးတွေ ရှာမတွေ့သေးဘူးရှင့်... 🥺💕")
+        return
+
+    partner = random.choice(potential)
+    await update.message.reply_text(
+        f"🌈 **မြှားနတ်မောင် မြှားပစ်လိုက်ပြီရှင့်** 🏹🎯✨\n\n"
+        f"❤️ @{update.effective_user.username}  ❤️ {partner['username']}\n\n"
+        f"အချစ်တွေ တိုးပွားပါစေရှင့်! 🥰💋✨"
+    )
+
+def main():
+    # TOKEN ထည့်ရန်
+    TOKEN = "YOUR_TOKEN_HERE"
+    app = Application.builder().token(TOKEN).build()
+    
+    # Handlers
+    app.add_handler(CommandHandler(["lgbtboy", "lgbtgirl"], register))
+    app.add_handler(CommandHandler(["mlbb", "pubg"], set_game))
+    app.add_handler(CommandHandler(["mbbfriend", "pubgfriend"], find_game_buddy))
+    app.add_handler(CommandHandler("lgbtlove", lgbt_love))
+    
+    app.run_polling()
+    
 if __name__ == '__main__': main()
       
